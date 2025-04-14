@@ -25,7 +25,7 @@ public class RickAndMortyService(HttpClient httpClient, CharacterRepository repo
             }
 
             Console.WriteLine($"Downloaded page {page}");
-            await StoreCharacterBatchAsync(response.Results);
+            StoreCharacterBatchAsync(response.Results);
 
             page++;
             hasNext = response.Info.Next != null;
@@ -34,9 +34,8 @@ public class RickAndMortyService(HttpClient httpClient, CharacterRepository repo
         return;
     }
 
-    private async Task StoreCharacterBatchAsync(IEnumerable<ApiCharacter> batch)
+    private void StoreCharacterBatchAsync(IEnumerable<ApiCharacter> batch)
     {
-        await Task.CompletedTask;
         batch
             .ToList()
             .ForEach(async character =>
